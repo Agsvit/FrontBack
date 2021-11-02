@@ -1,11 +1,12 @@
 package com.bootcamp.FrontBack.controller;
 
+import com.bootcamp.FrontBack.controller.request.ProductRequest;
 import com.bootcamp.FrontBack.model.Product;
 import com.bootcamp.FrontBack.service.ProductService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -25,6 +26,12 @@ public class ProductController {
        @GetMapping("/Products/{id}")
     public Product getProductById(@PathVariable(value = "id") Long id) {
         return productService.findById(id);
+    }
+
+    //Create
+    @PostMapping(value ="/Product", consumes = "application/json", produces = "application/json")
+    public ResponseEntity createProduct(@RequestBody ProductRequest productRequest){
+        return ResponseEntity.created(URI.create("/product/")).body("product Created");
     }
 
 }
