@@ -1,5 +1,8 @@
 package com.bootcamp.FrontBack.service;
 
+import com.bootcamp.FrontBack.exception.InvoiceNotFound;
+import com.bootcamp.FrontBack.exception.ProductNotFound;
+import com.bootcamp.FrontBack.exception.UserNotFound;
 import com.bootcamp.FrontBack.model.Invoice;
 import com.bootcamp.FrontBack.model.Product;
 import com.bootcamp.FrontBack.model.User;
@@ -26,24 +29,23 @@ public class InvoiceService {
 
 
     public List<Invoice> findByUser(Long id) {
-        User user = userRepository.findById(id).orElseThrow();
+        User user = userRepository.findById(id).orElseThrow(UserNotFound::new);
         return user.getInvoiceList();
     }
 
-    //ADD EXCEPTION
     public Invoice findById(Long id) {
-        return invoiceRepository.findById(id).orElseThrow();
+        return invoiceRepository.findById(id).orElseThrow(InvoiceNotFound::new);
     }
 
     public Invoice newInvoice(List<Long> productIds, Long userId) {
         List<Product> productList = new ArrayList<>();
         float total = 0;
         for (Long id : productIds) {
-            Product product = productRepository.findById(id).orElseThrow();
+            Product product = productRepository.findById(id).orElseThrow(ProductNotFound::new);
             productList.add(product);
             total = total + product.getValue();
         }
-        User user = userRepository.findById(userId).orElseThrow();
+        User user = userRepository.findById(userId).orElseThrow(UserNotFound::new);
         Invoice invoice = Invoice.builder()
                 .total(total)
                 .productList(productList)
