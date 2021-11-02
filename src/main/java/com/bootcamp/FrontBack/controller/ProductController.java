@@ -22,8 +22,6 @@ public class ProductController {
         return productService.findAll();
     }
 
-    // Endpoint FindProductById
-
        @GetMapping("/Products/{id}")
     public Product getProductById(@PathVariable(value = "id") Long id) {
         return productService.findById(id);
