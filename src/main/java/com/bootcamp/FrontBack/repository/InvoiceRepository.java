@@ -1,6 +1,7 @@
 package com.bootcamp.FrontBack.repository;
 
 import com.bootcamp.FrontBack.model.Invoice;
+import com.bootcamp.FrontBack.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

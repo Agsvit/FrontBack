@@ -53,7 +53,7 @@ public class Invoice {
                 this.getNumber(),
                 productResponses,
                 this.getTotal(),
-                this.getUser().getName());
+                this.getUser().getUsername());
     }
 }
 
