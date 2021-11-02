@@ -1,11 +1,11 @@
 package com.bootcamp.FrontBack.controller;
 
+import com.bootcamp.FrontBack.controller.request.InvoiceRequest;
+import com.bootcamp.FrontBack.controller.request.ProductRequest;
 import com.bootcamp.FrontBack.controller.response.InvoiceResponse;
 import com.bootcamp.FrontBack.model.Invoice;
 import com.bootcamp.FrontBack.service.InvoiceService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +28,19 @@ public class InvoiceController {
         return invoiceResponses;
     }
 
-    @GetMapping("/planes")
-    public List<InvoiceResponse> getInvoices() {
-        return this.invoiceResponses(invoiceService.findAll());
+    @GetMapping("/invoices/users/{id}")
+    public List<InvoiceResponse> getAllInvoices(@PathVariable(value = "id") Long id) {
+        return this.invoiceResponses(invoiceService.findByUser(id));
+    }
+
+    @GetMapping("/invoices/{id}")
+    public InvoiceResponse getPlaneById(@PathVariable(value = "id") Long id) {
+        return invoiceService.findById(id).invoiceResponse();
+    }
+
+    @PostMapping(value = "/invoices/products/{id}", consumes = "application/json", produces = "application/json")
+    public InvoiceResponse createInvoice(@RequestBody InvoiceRequest invoiceRequest) {
+        return invoiceService.newInvoice(invoiceRequest.getProductIds(),invoiceRequest.getUserId()).invoiceResponse();
     }
 
 }

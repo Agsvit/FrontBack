@@ -21,6 +21,7 @@ public class Invoice {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private double number;
     private float total;
 
@@ -50,8 +51,9 @@ public class Invoice {
         return new InvoiceResponse(
                 this.getId(),
                 this.getNumber(),
+                productResponses,
                 this.getTotal(),
-                productResponses);
+                this.getUser().getName());
     }
 }
 

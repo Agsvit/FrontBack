@@ -12,8 +12,10 @@ import java.util.List;
 public class InvoiceResponse {
     private Long id;
     private double number;
-    private float total;
 
     private List<ProductResponse> productResponses;
+
+    private float total;
+    private String userName;
 
 }
