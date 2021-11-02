@@ -19,8 +19,4 @@ public class Product {
     private String name;
     private float value;
 
-    @ManyToOne
-    @JoinColumn(name = "invoice_id")
-    private Invoice invoice;
-
 }

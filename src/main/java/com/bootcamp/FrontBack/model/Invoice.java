@@ -1,8 +1,12 @@
 package com.bootcamp.FrontBack.model;
 
+import com.bootcamp.FrontBack.controller.response.InvoiceResponse;
+import com.bootcamp.FrontBack.controller.response.ProductResponse;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -29,5 +33,25 @@ public class Invoice {
             name = "productInvoice",
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "invoice_id"))
-            private List<Product> productList;
+    private List<Product> productList;
+
+    @JsonIgnore
+    public InvoiceResponse invoiceResponse() {
+        List<ProductResponse> productResponses = new ArrayList<ProductResponse>();
+        if (this.productList != null && !this.productList.isEmpty()) {
+            for (Product product : this.productList) {
+                productResponses.add(new ProductResponse(
+                        product.getId(),
+                        product.getName(),
+                        product.getValue()
+                ));
+            }
+        }
+        return new InvoiceResponse(
+                this.getId(),
+                this.getNumber(),
+                this.getTotal(),
+                productResponses);
+    }
 }
+
