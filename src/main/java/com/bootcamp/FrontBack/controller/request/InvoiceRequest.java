@@ -2,7 +2,6 @@ package com.bootcamp.FrontBack.controller.request;
 
 import com.bootcamp.FrontBack.model.Invoice;
 import com.bootcamp.FrontBack.model.Product;
-import com.bootcamp.FrontBack.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
