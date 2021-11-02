@@ -18,4 +18,11 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+    // Endpoint FindProductById
+
+    public Product findById(Long id) {
+        return productRepository.findById(id).get();
+    }
+
+
 }
