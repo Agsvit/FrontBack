@@ -22,15 +22,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService);
     }
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeRequests()
+        http.csrf().disable();
+                /*.authorizeRequests()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/Admin").hasAnyRole("ADMIN","USER")
                 .antMatchers("/products/**").hasAnyRole("ADMIN", "USER")
                 .antMatchers("/User").hasRole("USER")
                 .antMatchers("/swagger-ui/**").authenticated()
                 .antMatchers("/").permitAll()
-                .and().httpBasic();
+                .and().httpBasic();*/
 
     }
 

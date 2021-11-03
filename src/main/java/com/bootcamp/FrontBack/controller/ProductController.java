@@ -22,20 +22,22 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    @ApiOperation(value = "Update registration detail",
+    @ApiOperation(value = "Get all products",
             authorizations = { @Authorization(value="basicAuth") })
     public List<Product> getProduct(){
         return productService.findAll();
     }
 
     @GetMapping("/products/{id}")
+    @ApiOperation(value = "Get products by id",
+            authorizations = { @Authorization(value="basicAuth") })
     public Product getProductById(@PathVariable(value = "id") Long id) {
         return productService.findById(id);
     }
 
     //Create
     @PostMapping(value ="/products")
-    @ApiOperation(value = "Update registration detail",
+    @ApiOperation(value = "Create product",
             authorizations = { @Authorization(value="basicAuth") })
     public Product createProduct(@RequestBody ProductRequest productRequest){
         Product product = Product.builder()

@@ -19,9 +19,11 @@ import java.util.List;
 @Builder
 @Entity
 public class User implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String userName;
 
     @JsonIgnore
