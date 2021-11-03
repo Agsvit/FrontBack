@@ -38,7 +38,7 @@ public class InvoiceController {
         return invoiceService.findById(id).invoiceResponse();
     }
 
-    @PostMapping(value = "/invoices/products/{id}", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "/invoices/products/", consumes = "application/json", produces = "application/json")
     public InvoiceResponse createInvoice(@RequestBody InvoiceRequest invoiceRequest) {
         return invoiceService.newInvoice(invoiceRequest.getProductIds(),invoiceRequest.getUserId()).invoiceResponse();
     }
