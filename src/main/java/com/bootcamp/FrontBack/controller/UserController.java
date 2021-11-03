@@ -32,6 +32,7 @@ public class UserController {
         User user = User.builder()
                 .userName(request.getUserName())
                 .age(request.getAge())
+                .password(request.getPassword())
                 .build();
         userService.createUser(user);
         return user;
