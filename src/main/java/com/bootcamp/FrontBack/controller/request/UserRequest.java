@@ -10,5 +10,7 @@ import lombok.*;
 public class UserRequest {
     private String userName;
     private int age;
+    private String password;
+
 
 }
