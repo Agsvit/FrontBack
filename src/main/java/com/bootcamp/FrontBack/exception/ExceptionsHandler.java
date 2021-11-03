@@ -38,4 +38,13 @@ public class ExceptionsHandler {
                 LocalDateTime.now()
         );
     }
+    @ExceptionHandler({InvalidPassword.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public HttpErrorResponse handleGenericException(InvalidPassword exception) {
+        return new HttpErrorResponse(
+                403,
+                exception.getMessage(),
+                LocalDateTime.now()
+        );
+    }
 }
