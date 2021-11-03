@@ -51,4 +51,11 @@ public class InvoiceController {
         return invoiceService.newInvoice(invoiceRequest.getProductIds(),invoiceRequest.getUserId()).invoiceResponse();
     }
 
+    @GetMapping(value = "/invoices-5-highest")
+    @ApiOperation(value = "List 5 highest bills",
+            authorizations = { @Authorization(value="basicAuth") })
+    public List<InvoiceResponse> retrieveHighestBill() {
+        List<Invoice> invoiceList = invoiceService.retrieveHighestBill();
+        return this.invoiceResponses(invoiceList);
+    }
 }
