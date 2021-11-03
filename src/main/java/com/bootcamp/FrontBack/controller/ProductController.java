@@ -1,8 +1,11 @@
 package com.bootcamp.FrontBack.controller;
 
 import com.bootcamp.FrontBack.controller.request.ProductRequest;
+import com.bootcamp.FrontBack.controller.response.ProductResponse;
 import com.bootcamp.FrontBack.model.Product;
 import com.bootcamp.FrontBack.service.ProductService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,19 +22,30 @@ public class ProductController {
     }
 
     @GetMapping("/products")
+    @ApiOperation(value = "Update registration detail",
+            authorizations = { @Authorization(value="basicAuth") })
     public List<Product> getProduct(){
         return productService.findAll();
     }
 
-       @GetMapping("/Products/{id}")
+    @GetMapping("/products/{id}")
     public Product getProductById(@PathVariable(value = "id") Long id) {
         return productService.findById(id);
     }
 
     //Create
-    @PostMapping(value ="/Product", consumes = "application/json", produces = "application/json")
-    public ResponseEntity createProduct(@RequestBody ProductRequest productRequest){
-        return ResponseEntity.created(URI.create("/product/")).body("product Created");
+    @PostMapping(value ="/products")
+    @ApiOperation(value = "Update registration detail",
+            authorizations = { @Authorization(value="basicAuth") })
+    public Product createProduct(@RequestBody ProductRequest productRequest){
+        Product product = Product.builder()
+                .name(productRequest.getName())
+                .value(productRequest.getValue())
+                .build();
+        productService.createProduct(product);
+        return product;
+
+
     }
 
 }

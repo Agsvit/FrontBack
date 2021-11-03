@@ -1,5 +1,6 @@
 package com.bootcamp.FrontBack.service;
 
+import com.bootcamp.FrontBack.controller.response.ProductResponse;
 import com.bootcamp.FrontBack.model.Product;
 import com.bootcamp.FrontBack.repository.ProductRepository;
 import org.springframework.stereotype.Service;
@@ -23,4 +24,7 @@ public class ProductService {
     }
 
 
+    public Product createProduct(Product product) {
+        return productRepository.save(product);
+    }
 }

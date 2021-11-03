@@ -34,7 +34,7 @@ public class InvoiceController {
     }
 
     @GetMapping("/invoices/{id}")
-    public InvoiceResponse getPlaneById(@PathVariable(value = "id") Long id) {
+    public InvoiceResponse getInvoiceById(@PathVariable(value = "id") Long id) {
         return invoiceService.findById(id).invoiceResponse();
     }
 
