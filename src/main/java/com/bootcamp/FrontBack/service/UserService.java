@@ -1,8 +1,11 @@
 package com.bootcamp.FrontBack.service;
 
 import com.bootcamp.FrontBack.controller.request.UpdateUserRequest;
-import com.bootcamp.FrontBack.controller.response.UserResponse;
+import com.bootcamp.FrontBack.controller.response.UserIdResponse;
+import com.bootcamp.FrontBack.exception.InvalidPassword;
 import com.bootcamp.FrontBack.exception.UpdateUserException;
+import com.bootcamp.FrontBack.exception.UserByIdNotFound;
+import com.bootcamp.FrontBack.exception.UserNotFound;
 import com.bootcamp.FrontBack.model.User;
 import com.bootcamp.FrontBack.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +38,7 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
-    public User updateUser(Long id, UpdateUserRequest request)  {
+    public User updateUser(Long id, UpdateUserRequest request) {
         User user = userRepository.findById(id).orElseThrow(
                 () -> new UpdateUserException("User not found"));
         user.setUserName(request.getUserName());
@@ -45,6 +48,22 @@ public class UserService implements UserDetailsService {
         return user;
 
 
+    }
+
+    public User verifyUser(String userName, String password) {
+        User user = userRepository.findByUserName(userName).orElseThrow(UserNotFound::new);
+        if (user.getPassword().equals(password)) {
+            return user;
+        } else {
+            throw new InvalidPassword();
+        }
+    }
+
+
+    public User userById(Long id) {
+        User user = userRepository.findById(id).orElseThrow(
+                () -> new UserByIdNotFound("User not found"));
+        return user;
     }
 }
 

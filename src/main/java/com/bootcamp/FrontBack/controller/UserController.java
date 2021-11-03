@@ -5,7 +5,9 @@ import com.bootcamp.FrontBack.controller.request.UserRequest;
 import com.bootcamp.FrontBack.controller.response.UserResponse;
 import com.bootcamp.FrontBack.controller.response.UserVerifyResponse;
 import com.bootcamp.FrontBack.exception.UpdateUserException;
+import com.bootcamp.FrontBack.exception.UserByIdNotFound;
 import com.bootcamp.FrontBack.model.User;
+import com.bootcamp.FrontBack.controller.response.UserIdResponse;
 import com.bootcamp.FrontBack.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
@@ -81,6 +83,19 @@ public class UserController {
     public ResponseEntity<String> updateUser(UpdateUserException exception) {
         return new ResponseEntity(exception.getMessage(), HttpStatus.NOT_FOUND);
     }
+    @GetMapping(value = "get/{id}")
+    @ApiOperation(value = "Getting an user by id")
+    public UserIdResponse userById(@PathVariable("id") Long id) throws UserByIdNotFound {
+       User user = userService.userById(id);
+       UserIdResponse userIdResponse = UserIdResponse.builder().name(user.getUsername()).age(user.getAge()).build();
+       return userIdResponse;
+    }
+
+    @ExceptionHandler(UserByIdNotFound.class)
+    public ResponseEntity<String> userNotFound(UserByIdNotFound exception) {
+        return new ResponseEntity(exception.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
 
 
 }
