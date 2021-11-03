@@ -1,5 +1,6 @@
 package com.bootcamp.FrontBack.service;
 
+import com.bootcamp.FrontBack.controller.response.InvoiceResponse;
 import com.bootcamp.FrontBack.exception.InvoiceNotFound;
 import com.bootcamp.FrontBack.exception.ProductNotFound;
 import com.bootcamp.FrontBack.exception.UserNotFound;
@@ -53,5 +54,9 @@ public class InvoiceService {
                 .build();
         return invoiceRepository.save(invoice);
 
+    }
+
+    public List<Invoice> retrieveHighestBill() {
+        return invoiceRepository.findHighestInvoices();
     }
 }

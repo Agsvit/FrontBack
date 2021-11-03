@@ -53,14 +53,20 @@ public class UserController {
     @PostMapping(value = "/post/create/user")
     @ApiOperation(value = "Creating a new user",
             authorizations = {@Authorization(value = "basicAuth")})
-    public User createUser(@RequestBody UpdateUserRequest request) {
+    public UserResponse createUser(@RequestBody UpdateUserRequest request) {
         User user = User.builder()
                 .userName(request.getUserName())
                 .age(request.getAge())
                 .password(request.getPassword())
                 .build();
         userService.createUser(user);
-        return user;
+        UserResponse userResponse = UserResponse.builder()
+                .id(user.getId())
+                .name(user.getUsername())
+                .password(user.getPassword())
+                .age(user.getAge())
+                .build();
+        return userResponse;
     }
 
     @PutMapping(value = "/put-edit-user/{id}")
