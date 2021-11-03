@@ -27,4 +27,14 @@ public class UserService implements UserDetailsService {
     public List<User> userList() {
         return userRepository.findAll();
     }
+
+    public User createUser(User user) {
+        return userRepository.save(user);
+    }
+
+    public Optional<User> editUser(Long id, String name)  {
+        Optional<User> user = userRepository.findById(id);
+        return user;
+    }
 }
+
