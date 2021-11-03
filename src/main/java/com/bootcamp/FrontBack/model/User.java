@@ -33,6 +33,7 @@ public class User implements UserDetails {
     private boolean active;
     private String roles;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Invoice> invoiceList;
 
