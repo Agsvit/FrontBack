@@ -1,7 +1,6 @@
 package com.bootcamp.FrontBack.controller;
 
 import com.bootcamp.FrontBack.controller.request.UpdateUserRequest;
-import com.bootcamp.FrontBack.controller.response.UserResponse;
 import com.bootcamp.FrontBack.exception.UpdateUserException;
 import com.bootcamp.FrontBack.model.User;
 import com.bootcamp.FrontBack.service.UserService;
@@ -53,7 +52,11 @@ public class UserController {
     }
 
 
+    }
 
 
 
-}
+
+
+
+

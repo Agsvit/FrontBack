@@ -1,7 +1,6 @@
 package com.bootcamp.FrontBack.service;
 
 import com.bootcamp.FrontBack.controller.request.UpdateUserRequest;
-import com.bootcamp.FrontBack.controller.response.UserResponse;
 import com.bootcamp.FrontBack.exception.UpdateUserException;
 import com.bootcamp.FrontBack.model.User;
 import com.bootcamp.FrontBack.repository.UserRepository;
@@ -47,4 +46,3 @@ public class UserService implements UserDetailsService {
 
     }
 }
-
