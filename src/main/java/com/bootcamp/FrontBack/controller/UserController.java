@@ -6,6 +6,7 @@ import com.bootcamp.FrontBack.controller.response.UserResponse;
 import com.bootcamp.FrontBack.controller.response.UserVerifyResponse;
 import com.bootcamp.FrontBack.exception.UpdateUserException;
 import com.bootcamp.FrontBack.exception.UserByIdNotFound;
+import com.bootcamp.FrontBack.exception.UserNotFound;
 import com.bootcamp.FrontBack.model.User;
 import com.bootcamp.FrontBack.controller.response.UserIdResponse;
 import com.bootcamp.FrontBack.service.UserService;
@@ -74,7 +75,7 @@ public class UserController {
     @PutMapping(value = "/put-edit-user/{id}")
     @ApiOperation(value = "Modifying a new user",
             authorizations = {@Authorization(value = "basicAuth")})
-    public ResponseEntity updateUserById(@PathVariable Long id, @RequestBody UpdateUserRequest request) throws UpdateUserException {
+    public ResponseEntity updateUserById(@PathVariable Long id, @RequestBody UpdateUserRequest request) {
         final User updateUserById = userService.updateUser(id, request);
         return ResponseEntity.created(URI.create("/user" + id + "name")).body("Updated user");
     }
@@ -85,17 +86,9 @@ public class UserController {
     }
     @GetMapping(value = "get/{id}")
     @ApiOperation(value = "Getting an user by id")
-    public UserIdResponse userById(@PathVariable("id") Long id) throws UserByIdNotFound {
+    public UserIdResponse userById(@PathVariable("id") Long id) throws UserNotFound {
        User user = userService.userById(id);
        UserIdResponse userIdResponse = UserIdResponse.builder().name(user.getUsername()).age(user.getAge()).build();
        return userIdResponse;
     }
-
-    @ExceptionHandler(UserByIdNotFound.class)
-    public ResponseEntity<String> userNotFound(UserByIdNotFound exception) {
-        return new ResponseEntity(exception.getMessage(), HttpStatus.NOT_FOUND);
-    }
-
-
-
 }

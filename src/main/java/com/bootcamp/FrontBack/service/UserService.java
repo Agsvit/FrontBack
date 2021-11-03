@@ -39,8 +39,7 @@ public class UserService implements UserDetailsService {
     }
 
     public User updateUser(Long id, UpdateUserRequest request) {
-        User user = userRepository.findById(id).orElseThrow(
-                () -> new UpdateUserException("User not found"));
+        User user = userRepository.findById(id).orElseThrow(UserNotFound::new);
         user.setUserName(request.getUserName());
         user.setAge(request.getAge());
         user.setPassword(request.getPassword());
