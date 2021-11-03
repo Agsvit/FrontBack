@@ -1,5 +1,8 @@
 package com.bootcamp.FrontBack.service;
 
+import com.bootcamp.FrontBack.controller.request.UpdateUserRequest;
+import com.bootcamp.FrontBack.controller.response.UserResponse;
+import com.bootcamp.FrontBack.exception.UpdateUserException;
 import com.bootcamp.FrontBack.model.User;
 import com.bootcamp.FrontBack.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +35,16 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
-    public Optional<User> editUser(Long id, String name)  {
-        Optional<User> user = userRepository.findById(id);
+    public User updateUser(Long id, UpdateUserRequest request)  {
+        User user = userRepository.findById(id).orElseThrow(
+                () -> new UpdateUserException("User not found"));
+        user.setUserName(request.getUserName());
+        user.setAge(request.getAge());
+        user.setPassword(request.getPassword());
+        userRepository.save(user);
         return user;
+
+
     }
 }
 
